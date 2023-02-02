@@ -77,7 +77,7 @@ if (!empty($_GET['steamids'])) {
              * Setup CDN on avatar URLs
              */
             $avatarPath = parse_url($rows->avatar);
-            $rows->avatar = $sHelper->getSteamCDNDomain($avatarPath["path"]);
+            $rows->avatar = $sHelper->getSteamCDNDomainAvatar($avatarPath["path"]);
 			
 			/*
 			 * Sanitize Names

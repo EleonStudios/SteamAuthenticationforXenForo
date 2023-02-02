@@ -64,36 +64,62 @@ class Steam_Helper_Steam {
 
         switch ($SteamCDNcase) {
             case 0:
-                $SteamCDNDomain = '//steamcdn-a.akamaihd.net'
+                $SteamCDNDomain = '//media.steampowered.com'
                                 .$imagePath;
                 break;
             case 1:
-                $SteamCDNDomain = 'https://steamcdn-a.akamaihd.net'
+                $SteamCDNDomain = 'http://media.steampowered.com'
                                 .$imagePath;
                 break;
             case 2:
-                $SteamCDNDomain = 'http://steamcdn-a.akamaihd.net'
-                                .$imagePath;
-                break;
-            case 3:
-                $SteamCDNDomain = 'http://cdn.akamai.steamstatic.com'
-                                .$imagePath;
-                break;
-            case 4:
-                $SteamCDNDomain = 'http://cdn.akamai.steamstatic.com'
+                $SteamCDNDomain = 'https://media.steampowered.com'
                                 .$imagePath;
                 if(!empty($XF_IMAGE_PROXY)) {
                     $SteamCDNDomain = $this->getImageProxy($SteamCDNDomain);
                 }
                 break;
             default:
-                $SteamCDNDomain = '//steamcdn-a.akamaihd.net'
+                $SteamCDNDomain = '//media.steampowered.com'
                                 .$imagePath;
                 break;
         }
         return $SteamCDNDomain;
     }
     
+    public function getSteamCDNDomainAvatar($imagePath)
+    {     
+        if(strpos($imagePath, 'styles/') !== false){
+            return $imagePath;
+        }
+        
+        $options = XenForo_Application::get('options');
+        $SteamCDNcase = $options->steamAvatarCDN;
+        $XF_IMAGE_PROXY = $options->imageLinkProxy['images'];
+
+        switch ($SteamCDNcase) {
+            case 0:
+                $SteamCDNDomain = '//avatars.akamai.steamstatic.com'
+                                .$imagePath;
+                break;
+            case 1:
+                $SteamCDNDomain = 'http://avatars.akamai.steamstatic.com'
+                                .$imagePath;
+                break;
+            case 2:
+                $SteamCDNDomain = 'https://avatars.akamai.steamstatic.com'
+                                .$imagePath;
+                if(!empty($XF_IMAGE_PROXY)) {
+                    $SteamCDNDomain = $this->getImageProxy($SteamCDNDomain);
+                }
+                break;
+            default:
+                $SteamCDNDomain = '//avatars.akamai.steamstatic.com'
+                                .$imagePath;
+                break;
+        }
+        return $SteamCDNDomain;
+    }	
+
     /**
      * Builds the base Steam API link
      *

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="Steam" title="Steam Auth" version_string="1.6.3" version_id="179" url="http://xenforo.com/community/threads/steam-authentication-integration.42694/" install_callback_class="Steam_Manufacture" install_callback_method="build" uninstall_callback_class="Steam_Manufacture" uninstall_callback_method="destroy">
+<addon addon_id="Steam" title="Steam Auth" version_string="1.6.4" version_id="180" url="https://github.com/EleonStudios/SteamAuthenticationforXenForo/tree/release" install_callback_class="Steam_Manufacture" install_callback_method="build" uninstall_callback_class="Steam_Manufacture" uninstall_callback_method="destroy">
 	<admin_navigation>
 		<navigation navigation_id="steam" parent_navigation_id="" display_order="60" link="steam" admin_permission_id="viewStatistics" debug_only="0" hide_no_children="0"/>
 		<navigation navigation_id="steam_info_users" parent_navigation_id="steam_information" display_order="1" link="steam/users" admin_permission_id="viewStatistics" debug_only="0" hide_no_children="0"/>
@@ -484,14 +484,24 @@
 		<option option_id="steamImageCDN" edit_format="radio" data_type="unsigned_integer" can_backup="1">
 			<default_value>0</default_value>
 			<edit_format_params>
-				0={xen:phrase steam_use_CDN_akamai_both}
-				1={xen:phrase steam_use_CDN_akamai_HTTPS}
-				2={xen:phrase steam_use_CDN_akamai_HTTP}
-				3={xen:phrase steam_use_CDN_akamai_alt}
+				0={xen:phrase steam_use_CDN_media_both}
+				1={xen:phrase steam_use_CDN_media_HTTP}
+				3={xen:phrase steam_use_CDN_media_HTTPS}
 				4={xen:phrase steam_use_CDN_local}
 			</edit_format_params>
 			<sub_options></sub_options>
 			<relation group_id="SteamAuth" display_order="600"/>
+		</option>
+		<option option_id="steamAvatarCDN" edit_format="radio" data_type="unsigned_integer" can_backup="1">
+			<default_value>0</default_value>
+			<edit_format_params>
+				0={xen:phrase steam_use_CDN_avatar_both}
+				2={xen:phrase steam_use_CDN_avatar_HTTP}
+				3={xen:phrase steam_use_CDN_avatar_HTTPS}
+				4={xen:phrase steam_use_CDN_local}
+			</edit_format_params>
+			<sub_options></sub_options>
+			<relation group_id="SteamAuth" display_order="601"/>
 		</option>
 		<option option_id="steamJSONLink" edit_format="radio" data_type="unsigned_integer" can_backup="1">
 			<default_value>0</default_value>
@@ -557,6 +567,8 @@
 		<phrase title="option_steamGameStatsReg_explain" version_id="160" version_string="1.5.0"><![CDATA[Polls the Steam Web API for game statistics on a user during registration. Disabling will reduce API requests, however, stats won't exist for the user until the cron runs.]]></phrase>
 		<phrase title="option_steamImageCDN" version_id="146" version_string="1.4.5"><![CDATA[Steam Image Source]]></phrase>
 		<phrase title="option_steamImageCDN_explain" version_id="146" version_string="1.4.5"><![CDATA[Controls the source of the images from the Steam CDN. Not all CDN options support HTTPS/SSL. Steamcdn-a.akamaihd.net (HTTPS/HTTP) is recommended, unless you have issues with protocol relative links.]]></phrase>
+		<phrase title="option_steamAvatarCDN" version_id="180" version_string="1.6.4"><![CDATA[Steam Avatar Source]]></phrase>
+		<phrase title="option_steamAvatarCDN_explain" version_id="180" version_string="1.6.4"><![CDATA[Controls the source of the avatars from the Steam CDN. Not all CDN options support HTTPS/SSL. Avatars.akamai.steamstatic.com (HTTPS/HTTP) is recommended, unless you have issues with protocol relative links.]]></phrase>		
 		<phrase title="option_steamIncludeGames" version_id="52" version_string="1.2.4"><![CDATA[Include Games]]></phrase>
 		<phrase title="option_steamIncludeGames_explain" version_id="160" version_string="1.5.0"><![CDATA[Only display Steam statistics from appids in this list. Comma delimited. Example: 440,550,4000 would only show stats from Team Fortress 2, Left 4 Dead 2, and Garry's Mod.]]></phrase>
 		<phrase title="option_steamJSONLink" version_id="146" version_string="1.4.5"><![CDATA[Steam API Source]]></phrase>
@@ -600,10 +612,12 @@
 		<phrase title="steam_use_button_normal" version_id="158" version_string="1.5.0"><![CDATA[Thin button]]></phrase>
 		<phrase title="steam_use_button_large" version_id="158" version_string="1.5.0"><![CDATA[Large button]]></phrase>
 		<phrase title="steam_use_button_large_border" version_id="158" version_string="1.5.0"><![CDATA[Large button with border]]></phrase>
-		<phrase title="steam_use_CDN_akamai_alt" version_id="147" version_string="1.4.5"><![CDATA[cdn.akamai.steamstatic.com (HTTP Only)]]></phrase>
-		<phrase title="steam_use_CDN_akamai_both" version_id="147" version_string="1.4.5"><![CDATA[steamcdn-a.akamaihd.net (HTTPS/HTTP)]]></phrase>
-		<phrase title="steam_use_CDN_akamai_HTTPS" version_id="147" version_string="1.4.5"><![CDATA[steamcdn-a.akamaihd.net (HTTPS Only)]]></phrase>
-		<phrase title="steam_use_CDN_akamai_HTTP" version_id="147" version_string="1.4.5"><![CDATA[steamcdn-a.akamaihd.net (HTTP Only)]]></phrase>
+		<phrase title="steam_use_CDN_media_both" version_id="180" version_string="1.6.4"><![CDATA[media.steampowered.com (HTTPS/HTTP)]]></phrase>
+		<phrase title="steam_use_CDN_media_HTTP" version_id="180" version_string="1.6.4"><![CDATA[media.steampowered.com (HTTP Only)]]></phrase>
+		<phrase title="steam_use_CDN_media_HTTPS" version_id="180" version_string="1.6.4"><![CDATA[media.steampowered.com (HTTPS Only)]]></phrase>
+		<phrase title="steam_use_CDN_avatar_both" version_id="180" version_string="1.6.4"><![CDATA[avatars.akamai.steamstatic.com (HTTPS/HTTP)]]></phrase>
+		<phrase title="steam_use_CDN_avatar_HTTP" version_id="180" version_string="1.6.4"><![CDATA[avatars.akamai.steamstatic.com (HTTP Only)]]></phrase>
+		<phrase title="steam_use_CDN_avatar_HTTPS" version_id="180" version_string="1.6.4"><![CDATA[avatars.akamai.steamstatic.com (HTTPS Only)]]></phrase>		
 		<phrase title="steam_use_CDN_local" version_id="152" version_string="1.4.5"><![CDATA[XenForo Image Proxy (if enabled)]]></phrase>
 		<phrase title="steam_use_JSON_HTTP" version_id="147" version_string="1.4.5"><![CDATA[Steam API via HTTP]]></phrase>
 		<phrase title="steam_use_JSON_HTTPS" version_id="147" version_string="1.4.5"><![CDATA[Steam API via HTTPS]]></phrase>
